@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Smart PJU</title>
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <style type="text/css">
+      .chartBox {
+        width: 1200px;
+      }
+      .map-responsive{
+            overflow:hidden;
+            padding-bottom:50%;
+            position:relative;
+            height:0;
+        }
+        .map-responsive iframe{
+            left:0;
+            top:0;
+            height:100%;
+            width:100%;
+            position:absolute;
+        }
+        .dot {
+        height: 25px;
+        width: 25px;
+        border-radius: 50%;
+        display: inline-block;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Smart PJU</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Monitoring</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <h3 id="jam" class="mt-2"></h3>
+                    <ul class="navbar-nav ml-auto">
+                        <h6 class="mt-2">Status LED:</h6>
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <div class="dot mt-1" id="dot"></div>
+                        <!-- Nav Item - User Information -->
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-2">
+                            <h1 class="h3 mb-0 text-gray-800">Location</h1>
+                        </div>
+                        <div class="map-responsive">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.2920578050071!2d106.82318282918047!3d-6.372269999711808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xd6711abea381f65b!2zNsKwMjInMjAuMiJTIDEwNsKwNDknMjUuNCJF!5e0!3m2!1sid!2sid!4v1657111187966!5m2!1sid!2sid" width="600" height="450" style="border: 1px solid black;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+                        <h1 class="h3 mb-0 text-gray-800">Monitoring</h1>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                TEGANGAN PV ( V )</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="loadvoltage_PV"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-bolt fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                ARUS PV ( AMP )</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="current_mA_PV"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-bolt fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                DAYA PV ( WATT )</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="power_mW_PV"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-bolt fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                TEGANGAN BATERAI ( V )</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="loadvoltage_Batt"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-bolt fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                ARUS BATERAI ( AMP )</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="current_mA_Batt"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-bolt fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                DAYA BATERAI ( WATT )</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="power_mW_Batt"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-bolt fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                INTENSITAS CAHAYA MATAHARI</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="lux"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-bolt fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                KARBONDIOKSIDA ( PPM )</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="karbondioksida"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-bolt fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            <div class="row">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card shadow mb-4" style="height:14rem;">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Keterangan Mode</h6>
+                                </div>
+                                <div class="card-body text-center h-100">
+                                    <a href="#" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            1
+                                        </span>
+                                        <span class="text">Manual</span>
+                                    </a>
+                                    <div class="my-2"></div>
+                                    <a href="#" class="btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            2
+                                        </span>
+                                        <span class="text">Timer</span>
+                                    </a>
+                                    <div class="my-2"></div>
+                                    <a href="#" class="btn btn-warning btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            3
+                                        </span>
+                                        <span class="text">Light</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4 ">
+                            <div class="card shadow mb-4" style="height:14rem;">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Mode yang sedang digunakan</h6>
+                                </div>
+                                <div class="card-body text-center mt-5">
+                                    <script type="module">
+                                        import { Mode } from "./js/firebase.js";
+                                        import { onValue } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+
+                                        let dataMode;
+
+                                        onValue(Mode, (snapshot) => {
+                                            dataMode = snapshot.val();
+
+                                            if(dataMode == 1){
+                                                document.getElementById("mode").innerHTML 
+                                            = "<a class='btn btn-primary btn-icon-split'>" + "<span class='icon text-white-50'>" 
+                                                + dataMode + "</span>" + "<span class='text'>" + " Manual " + "</span>" + "</a>";
+                                            }
+                                            else if(dataMode == 2){
+                                                document.getElementById("mode").innerHTML 
+                                            = "<a class='btn btn-success btn-icon-split'>" + "<span class='icon text-white-50'>" 
+                                                + dataMode + "</span>" + "<span class='text'>" + " Timer " + "</span>" + "</a>";
+                                            }
+                                            else if(dataMode == 3){
+                                                document.getElementById("mode").innerHTML 
+                                            = "<a class='btn btn-warning btn-icon-split'>" + "<span class='icon text-white-50'>" 
+                                                + dataMode + "</span>" + "<span class='text'>" + " Light " + "</span>" + "</a>";
+                                            }
+                                        });
+
+                                    </script>
+                                    <div class="" id="mode"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card shadow mb-4" style="height:14rem;">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Mode Timer</h6>
+                                </div>
+                                <div class="card-body text-center mt-4">
+                                    <h3>ON = 18:00 <br> OFF = 06:00</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Earnings (Monthly) Card Example -->
+                        
+                        
+                        
+            </div>        
+            <!-- isi -->
+            
+
+            <div class="row">
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Tegangan PV Overview</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div class="chartBox2">
+                                        <canvas id="chartTeganganPV" width="800" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        </div>
+
+        <div class="row">
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Arus PV Overview</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div class="chartBox2">
+                                        <canvas id="chartArusPV" width="800" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        </div>
+        
+        <div class="row">
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Daya PV Overview</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div class="chartBox2">
+                                        <canvas id="chartDayaPV" width="800" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        </div>
+
+        <div class="row">
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Tegangan Batt Overview</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div class="chartBox2">
+                                        <canvas id="chartTeganganBatt" width="800" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        </div>
+
+        <div class="row">
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Arus Batt Overview</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div class="chartBox2">
+                                        <canvas id="chartArusBatt" width="800" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        </div>
+
+        <div class="row">
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Daya Batt Overview</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div class="chartBox2">
+                                        <canvas id="chartDayaBatt" width="800" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        </div>
+
+        <div class="row">
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Karbondioksida Overview</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div class="chartBox2">
+                                        <canvas id="chartKarbon" width="800" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        </div>
+
+        <div class="row">
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Intensitas Cahaya Overview</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div class="chartBox2">
+                                        <canvas id="chartLux" width="800" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    window.onload = function() { jam(); }
+
+    function jam() {
+     var e = document.getElementById('jam'),
+     d = new Date(), h, m, s;
+     h = d.getHours();
+     m = set(d.getMinutes());
+     s = set(d.getSeconds());
+
+     e.innerHTML = h +':'+ m +':'+ s;
+   
+     setTimeout('jam()', 1000);
+
+        if (h > 6 && h < 18) {
+            document.getElementById("dot").style.backgroundColor = "red";
+        } else if (h => 18 && h < 6){
+            document.getElementById("dot").style.backgroundColor = "green";
+        }
+    }
+   
+    function set(e) {
+     e = e < 10 ? '0'+ e : e;
+     return e;
+    }
+
+   </script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script type="module" src="./js/chartTeganganPV.js"></script>
+    <script type="module" src="./js/chartArusPV.js"></script>
+    <script type="module" src="./js/chartDayaPV.js"></script>
+    <script type="module" src="./js/chartTeganganBatt.js"></script>
+    <script type="module" src="./js/chartArusBatt.js"></script>
+    <script type="module" src="./js/chartDayaBatt.js"></script>
+    <script type="module" src="./js/chartKarbon.js"></script>
+    <script type="module" src="./js/chartLux.js"></script>
+
+    <script type="module" src="./js/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@2.0.0/dist/chartjs-plugin-streaming.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.4.0/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.1.0/dist/chartjs-adapter-luxon.min.js"></script>
+    
+</body>
+
+</html>
